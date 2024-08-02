@@ -21,10 +21,10 @@ fn main() {
         let l = parsed[0];
         let w = parsed[1];
         let h = parsed[2];
-        let mut results = [2 * l * w, 2 * w * h, 2 * h * l];
+        let mut results = [l * 2 + w * 2, w * 2 + h * 2, h * 2 + l * 2];
         results.sort_unstable();
         println!("{:?}", results);
-        sum += results[0] / 2 + results.into_iter().sum::<u32>();
+        sum += results[0] + l * w * h;
     }
     println!("{sum}")
 }
