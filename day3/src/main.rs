@@ -5,34 +5,64 @@ fn main() {
         read_to_string("C:\\Users\\080576781\\Desktop\\rust\\aoc\\day3\\input.txt").unwrap();
 
     let mut map = HashMap::new();
-    let mut previos_point = Point::new(0, 0);
-    map.insert(previos_point.clone(), 1);
+    let mut santa_previos_point = Point::new(0, 0);
+    let mut robo_previous_point = Point::new(0, 0);
+    map.insert(santa_previos_point.clone(), 2);
+    let mut is_santa = true;
 
     for char in content.chars() {
         match char {
             '^' => {
-                previos_point = previos_point.new_from_previous(0, 1);
-                map.entry(previos_point.clone())
-                    .and_modify(|e| *e += 1)
-                    .or_insert(1);
+                let aux;
+                if is_santa {
+                    aux = santa_previos_point.new_from_previous(0, 1);
+                    santa_previos_point = aux.clone();
+                    is_santa = false;
+                } else {
+                    aux = robo_previous_point.new_from_previous(0, 1);
+                    robo_previous_point = aux.clone();
+                    is_santa = true;
+                }
+                map.entry(aux).and_modify(|e| *e += 1).or_insert(1);
             }
             'v' | 'V' => {
-                previos_point = previos_point.new_from_previous(0, -1);
-                map.entry(previos_point.clone())
-                    .and_modify(|e| *e += 1)
-                    .or_insert(1);
+                let aux;
+                if is_santa {
+                    aux = santa_previos_point.new_from_previous(0, -1);
+                    santa_previos_point = aux.clone();
+                    is_santa = false;
+                } else {
+                    aux = robo_previous_point.new_from_previous(0, -1);
+                    robo_previous_point = aux.clone();
+                    is_santa = true;
+                }
+                map.entry(aux).and_modify(|e| *e += 1).or_insert(1);
             }
             '<' => {
-                previos_point = previos_point.new_from_previous(-1, 0);
-                map.entry(previos_point.clone())
-                    .and_modify(|e| *e += 1)
-                    .or_insert(1);
+                let aux;
+                if is_santa {
+                    aux = santa_previos_point.new_from_previous(-1, 0);
+                    santa_previos_point = aux.clone();
+                    is_santa = false;
+                } else {
+                    aux = robo_previous_point.new_from_previous(-1, 0);
+                    robo_previous_point = aux.clone();
+                    is_santa = true;
+                }
+                map.entry(aux).and_modify(|e| *e += 1).or_insert(1);
             }
             '>' => {
-                previos_point = previos_point.new_from_previous(1, 0);
-                map.entry(previos_point.clone())
-                    .and_modify(|e| *e += 1)
-                    .or_insert(1);
+                let aux;
+                if is_santa {
+                    aux = santa_previos_point.new_from_previous(1, 0);
+                    santa_previos_point = aux.clone();
+                    is_santa = false;
+                } else {
+                    aux = robo_previous_point.new_from_previous(1, 0);
+                    robo_previous_point = aux.clone();
+                    is_santa = true;
+                }
+                map.entry(aux).and_modify(|e| *e += 1).or_insert(1);
             }
             _ => {}
         }
